@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+
+	<record id="room_type_view_form" model="ir.ui.view">
+        <field name="model">hotel.room.type</field>
+        <field name="inherit_id" ref="hotel.hotel_room_type_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='toggle_active']" position="before">
+                <field name="channel_bind_ids" invisible="1" />
+                <button name="open_channel_bind_ids" type="object"
+                        class="oe_stat_button" icon="fa-toggle-off" string="Connect to Channel"
+                        attrs="{'invisible': [('channel_bind_ids','!=', [])]}"
+                />
+                <button name="open_channel_bind_ids" type="object"
+                        class="oe_stat_button" icon="fa-cloud-upload" string="Synchronize to Channel"
+                        attrs="{'invisible': [('channel_bind_ids','=', [])]}"
+                />
+                <button name="disconnect_channel_bind_ids" type="object"
+                        class="oe_stat_button" icon="fa-toggle-on" string="Disconnect from Channel"
+                        attrs="{'invisible': [('channel_bind_ids','=', [])]}"
+                        confirm="Disconnecting will automatically delete the room type in the Channel. Do you want to proceed?"
+                />
+            </xpath>
+
+            <xpath expr="//field[@name='room_ids']" position="before">
+                <field name="capacity" />
+            </xpath>
+
+            <xpath expr="//field[@name='board_service_room_type_ids']/tree" position="inside">
+                <field name="channel_service" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
